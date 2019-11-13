@@ -1,5 +1,6 @@
 {
   "name": "new",
+  "homepage": "https://haakseth.github.io/animate-route",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
@@ -7,6 +8,7 @@
   "dependencies": {
     "@turf/along": "^6.0.1",
     "@turf/length": "^6.0.2",
+    "gh-pages": "^2.1.1",
     "mapbox-gl": "1.4.1",
     "react": "16.8.6",
     "react-dom": "16.8.6",
@@ -20,6 +22,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
