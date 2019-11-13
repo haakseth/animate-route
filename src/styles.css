@@ -1,0 +1,46 @@
+html {
+  box-sizing: border-box;
+  background-color: #f0f4f8;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: "Lato", sans-serif;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #627d98;
+  letter-spacing: 0.05em;
+  overflow: none;
+}
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  font-family: "Lato", "sans-serif";
+  color: #627d98;
+}
+h1 {
+  color: #425971;
+  font-size: 17px;
+  letter-spacing: 0.05em;
+}
+h2 {
+  font-size: 15px;
+  letter-spacing: 0.05em;
+}
+h3 {
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+
+a {
+  color: #6884a0;
+}
