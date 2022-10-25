@@ -9,7 +9,7 @@
     "@turf/along": "^6.0.1",
     "@turf/length": "^6.0.2",
     "gh-pages": "^2.1.1",
-    "mapbox-gl": "1.4.1",
+    "maplibre-gl": "^1.5",
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-scripts": "3.0.1",

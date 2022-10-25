@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
-import mapboxgl from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
+import maplibre from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
 import styled from "styled-components";
 import along from "@turf/along";
 import length from "@turf/length";
@@ -11,7 +11,7 @@ export default function Map() {
 
   const [route, setRoute] = useState(undefined);
 
-  const getRoute = oslo => {
+  const getRoute = (oslo) => {
     if (route) setRoute(undefined);
     else {
       const routeFromApi = oslo ? toOslo : toTapHouse;
@@ -21,10 +21,10 @@ export default function Map() {
         features: [
           {
             ...routeFromApi.features[0],
-            geometry: { ...routeFromApi.features[0].geometry, coordinates: [] }
-          }
+            geometry: { ...routeFromApi.features[0].geometry, coordinates: [] },
+          },
         ],
-        originalRoute: routeFromApi
+        originalRoute: routeFromApi,
       };
       for (var i = 0; i < 120; i++) {
         const newCoord = along(
@@ -45,44 +45,39 @@ export default function Map() {
         type: "Feature",
         geometry: {
           type: "LineString",
-          coordinates: []
-        }
-      }
-    ]
+          coordinates: [],
+        },
+      },
+    ],
   });
   useEffect(() => {
     const initializeMap = ({ setMap, mapContainer }) => {
-      mapboxgl.accessToken =
-        "pk.eyJ1IjoiaGFha3NldGgiLCJhIjoiY2sycDl0cHF3MDF6ZjNlbzZtbm9maXJjeiJ9.AKnQ0IMwoETT_Tci3rDTSQ";
-      const mapboxMap = new mapboxgl.Map({
+      const maplibreMap = new maplibre.Map({
         container: mapContainer.current,
-        style: "mapbox://styles/haakseth/cjqwfdluz04nt2rnu04yd2ik4",
-        // center: [12.565948, 55.670915],
+        style:
+          "https://api.maptiler.com/maps/1f79a7b5-9424-43f3-9179-cd919d206533/style.json?key=Gw5WNrAaw6tgSh1dLDg8",
         center: [11.91, 57.8],
-        zoom: 5.7
+        zoom: 5.7,
       });
 
-      mapboxMap.on("load", () => {
-        setMap(mapboxMap);
-        mapboxMap.on("click", e => {
-          console.log(e.lngLat);
-        });
-        mapboxMap.addLayer({
+      maplibreMap.on("load", () => {
+        setMap(maplibreMap);
+        maplibreMap.addLayer({
           id: "line-animation",
           type: "line",
           source: {
             type: "geojson",
-            data: geoJson
+            data: geoJson,
           },
           layout: {
             "line-cap": "round",
-            "line-join": "round"
+            "line-join": "round",
           },
           paint: {
             "line-color": "#ed6498",
             "line-width": 10,
-            "line-opacity": 0.8
-          }
+            "line-opacity": 0.8,
+          },
         });
       });
     };
@@ -92,10 +87,6 @@ export default function Map() {
 
   useEffect(() => {
     if (route) {
-      // map.fitBounds(route.features[0].bbox, {
-      //   padding: 200
-      //   // speed: 10
-      // });
       animateLine();
     } else {
       setGeoJson({
@@ -105,22 +96,20 @@ export default function Map() {
             type: "Feature",
             geometry: {
               type: "LineString",
-              coordinates: []
-            }
-          }
-        ]
+              coordinates: [],
+            },
+          },
+        ],
       });
     }
     /*eslint-disable-next-line */
   }, [route]);
   useEffect(() => {
     if (geoJson && map) {
-      // console.log(geoJson.features[0].geometry.coordinates);
       map.getSource("line-animation").setData(geoJson);
     }
     /*eslint-disable-next-line */
   }, [geoJson]);
-  // const [animation, setAnimation] = useState(undefined);
   let progress = 0;
   const animateLine = () => {
     const antalpunkter = route.features[0].geometry.coordinates.length;
@@ -133,7 +122,7 @@ export default function Map() {
         ...route.features[0].geometry.coordinates.slice(
           progress,
           progress + antalpunkterPerFrame
-        )
+        ),
       ];
 
       progress += antalpunkterPerFrame;
@@ -155,9 +144,9 @@ export default function Map() {
         bottom: 0,
         left: 0,
         right: 0,
-        overflow: "none"
+        overflow: "none",
       }}
-      ref={el => (mapContainer.current = el)}
+      ref={(el) => (mapContainer.current = el)}
     >
       <Button onClick={() => map.flyTo({ center: [12.566, 55.673], zoom: 14 })}>
         Zoom nær
